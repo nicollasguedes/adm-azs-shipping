@@ -28,7 +28,7 @@ public class Item {
     @Column(nullable = false, name = "value")
     private double value;
 
-    @Column(nullable = false, name = "value")
+    @Column(nullable = false, name = "amount")
     private double amount;
 
     @Column(nullable = false, name = "description")
