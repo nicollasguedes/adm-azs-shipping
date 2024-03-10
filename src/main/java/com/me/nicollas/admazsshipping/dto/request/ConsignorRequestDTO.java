@@ -3,6 +3,7 @@ package com.me.nicollas.admazsshipping.dto.request;
 
 import com.me.nicollas.admazsshipping.enums.IdNumberTypeEnum;
 import com.me.nicollas.admazsshipping.validatior.annotation.UniqueConsignorEmail;
+import com.me.nicollas.admazsshipping.validatior.annotation.UniqueConsignorIdNumber;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ public class ConsignorRequestDTO {
     @NotNull(message = "The type of the identification number can't be null")
     private IdNumberTypeEnum identificationNumberType;
 
+    @UniqueConsignorIdNumber(message = "Consignor identification number already exists: ${validatedValue}")
     @NotBlank(message = "Identification number can't be null")
     private String identificationNumber;
 

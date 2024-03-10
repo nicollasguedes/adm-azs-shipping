@@ -8,4 +8,5 @@ import java.util.UUID;
 public interface ConsignorRepository extends JpaRepository<Consignor, UUID> {
 
     boolean existsByEmail(String email);
+    boolean existsByIdentificationNumber(String identificationNumber);
 }
