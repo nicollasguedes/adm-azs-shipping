@@ -7,15 +7,22 @@ services:
     env_file: .env
     environment:
       - MYSQL_ROOT_USER=$MYSQLDB_USER
-      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_PASSWORD
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
     ports:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
   app:
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy
     build: .
     restart: on-failure
     env_file: .env
@@ -28,10 +35,3 @@ services:
 
 volumes:
   db:
-
-#
-#    "spring.flyway.user": "$MYSQLDB_USER",
-#    "spring.flyway.password": "$MYSQLDB_ROOT_PASSWORD",
-#    "spring.flyway.placeholders.keyABC": "valueXYZ",
-#    "spring.flyway.url": "jdbc:mysql://localhost:3306/AdmAzsShippingDB?createDatabaseIfNotExist=true&serverTimezone=UTC",
-#    "spring.flyway.driver-class-name": "com.mysql.cj.jdbc.Driver"
