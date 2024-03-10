@@ -32,7 +32,7 @@ public class ShipmentStatusHistory {
     private String message;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "client_id", referencedColumnName = "id")
+    @JoinColumn(nullable = false, name = "shipment_id", referencedColumnName = "id")
     private Shipment shipment;
 
     @Override

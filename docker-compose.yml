@@ -26,8 +26,13 @@ services:
     build: .
     restart: on-failure
     env_file: .env
+    environment:
+      _JAVA_OPTIONS: >
+        -Xdebug
+        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
     ports:
       - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+      - '5005:5005'
     volumes:
       - .m2:/root/.m2
     stdin_open: true

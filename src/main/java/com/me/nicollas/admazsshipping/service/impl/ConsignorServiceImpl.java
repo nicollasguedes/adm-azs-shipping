@@ -19,7 +19,7 @@ public class ConsignorServiceImpl implements ConsignorService {
 
     @Override
     public Consignor saveConsignor(ConsignorRequestDTO consignorRequestDTO) {
-        return null;
+        return consignorRepository.save(new Consignor(consignorRequestDTO));
     }
 
     @Override

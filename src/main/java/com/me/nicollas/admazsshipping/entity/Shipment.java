@@ -43,7 +43,7 @@ public class Shipment {
     private List<ShipmentStatusHistory> statusHistories = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(nullable = false, name = "client_id", referencedColumnName = "id")
+    @JoinColumn(nullable = false, name = "consignor_id", referencedColumnName = "id")
     private Consignor consignor;
 
     @Embedded

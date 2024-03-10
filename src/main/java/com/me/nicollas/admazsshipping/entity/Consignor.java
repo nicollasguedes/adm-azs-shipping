@@ -1,5 +1,6 @@
 package com.me.nicollas.admazsshipping.entity;
 
+import com.me.nicollas.admazsshipping.dto.request.ConsignorRequestDTO;
 import com.me.nicollas.admazsshipping.enums.IdNumberTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,8 +19,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "client")
+@Table(name = "consignor")
 public class Consignor {
+
+    public Consignor(ConsignorRequestDTO requestDTO) {
+        this.name = requestDTO.getName();
+        this.email = requestDTO.getEmail();
+        this.identificationNumberType = requestDTO.getIdentificationNumberType();
+        this.identificationNumber = requestDTO.getIdentificationNumber();
+        this.phone = requestDTO.getPhone();
+         this.address = new Address(requestDTO.getAddress());
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,9 +59,9 @@ public class Consignor {
     @ToString.Exclude
     private List<Shipment> shipments = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "consignor_address_id")
-    private Address consignorAddress;
+    private Address address;
 
     @Override
     public final boolean equals(Object o) {

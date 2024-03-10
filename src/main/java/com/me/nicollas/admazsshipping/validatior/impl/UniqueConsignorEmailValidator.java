@@ -4,6 +4,7 @@ import com.me.nicollas.admazsshipping.repository.ConsignorRepository;
 import com.me.nicollas.admazsshipping.validatior.annotation.UniqueConsignorEmail;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -13,6 +14,10 @@ public class UniqueConsignorEmailValidator implements ConstraintValidator<Unique
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
-        return email != null && !consignorRepository.existsByEmail(email);
+        try {
+            return email == null || !consignorRepository.existsByEmail(email);
+        } catch (Exception ex) {
+            throw new ValidationException("Error validating email uniqueness", ex);
+        }
     }
 }

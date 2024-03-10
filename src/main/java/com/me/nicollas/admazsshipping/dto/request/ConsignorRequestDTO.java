@@ -3,6 +3,7 @@ package com.me.nicollas.admazsshipping.dto.request;
 
 import com.me.nicollas.admazsshipping.enums.IdNumberTypeEnum;
 import com.me.nicollas.admazsshipping.validatior.annotation.UniqueConsignorEmail;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,8 +18,9 @@ public class ConsignorRequestDTO {
     @NotBlank(message = "Consignor name can't be empty")
     private String name;
 
-    @UniqueConsignorEmail
-    @NotBlank(message = "Consignor e-mail can't be empty")
+    @Email(message = "must be a well-formed email address: ${validatedValue}")
+    @UniqueConsignorEmail(message = "Consignor e-mail already exists: ${validatedValue}")
+    @NotBlank(message = "Consignor e-mail can't be empty: ${validatedValue}")
     private String email;
 
     @NotNull(message = "The type of the identification number can't be null")
@@ -31,5 +33,5 @@ public class ConsignorRequestDTO {
     private String phone;
 
     @NotNull
-    private AddressRequestDTO consignorAddress;
+    private AddressRequestDTO address;
 }

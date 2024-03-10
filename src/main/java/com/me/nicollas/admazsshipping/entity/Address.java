@@ -1,5 +1,6 @@
 package com.me.nicollas.admazsshipping.entity;
 
+import com.me.nicollas.admazsshipping.dto.request.AddressRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -17,6 +18,19 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "address")
 public class Address {
+
+    public Address(AddressRequestDTO requestDTO) {
+        this.zipCode = requestDTO.getZipCode();
+        this.streetAddress = requestDTO.getStreetAddress();
+        this.streetNumber = requestDTO.getStreetNumber();
+        this.country = requestDTO.getCountry();
+        this.city = requestDTO.getCity();
+        this.state = requestDTO.getState();
+        this.unitNumber = requestDTO.getUnitNumber();
+        this.landmark = requestDTO.getLandmark();
+        this.latitude = requestDTO.getLatitude();
+        this.longitude = requestDTO.getLongitude();
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
     private UUID id;
