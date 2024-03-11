@@ -1,5 +1,6 @@
 package com.me.nicollas.admazsshipping.entity;
 
+import com.me.nicollas.admazsshipping.dto.request.ItemRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -17,6 +18,13 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "item")
 public class Item {
+
+    public Item(ItemRequestDTO itemRequestDTO) {
+        this.name = itemRequestDTO.getName();
+        this.value = itemRequestDTO.getValue();
+        this.amount = itemRequestDTO.getAmount();
+        this.description = itemRequestDTO.getDescription();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")

@@ -1,14 +1,13 @@
 package com.me.nicollas.admazsshipping.entity;
 
+import com.me.nicollas.admazsshipping.dto.request.ShipmentRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -19,6 +18,18 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "shipment")
 public class Shipment {
+
+    public Shipment(ShipmentRequestDTO shipmentRequestDTO) {
+        this.price = shipmentRequestDTO.getPrice();
+        this.width = shipmentRequestDTO.getWidth();
+        this.height = shipmentRequestDTO.getHeight();
+        this.length = shipmentRequestDTO.getLength();
+        this.weight = shipmentRequestDTO.getWeight();
+        this.itemList = shipmentRequestDTO.getItemList().stream().map(Item::new).collect(Collectors.toList());
+        this.consignee = Optional.ofNullable(shipmentRequestDTO.getConsigneeRequest())
+                .map(Consignee::new)
+                .orElse(null);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
@@ -40,7 +51,7 @@ public class Shipment {
 
     @OneToMany(mappedBy = "shipment", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
-    private List<ShipmentStatusHistory> statusHistories = new ArrayList<>();
+    private List<ShipmentStatusHistory> statusList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "consignor_id", referencedColumnName = "id")

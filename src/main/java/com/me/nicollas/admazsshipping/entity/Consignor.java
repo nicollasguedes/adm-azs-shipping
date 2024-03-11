@@ -7,10 +7,7 @@ import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -28,7 +25,9 @@ public class Consignor {
         this.identificationNumberType = requestDTO.getIdentificationNumberType();
         this.identificationNumber = requestDTO.getIdentificationNumber();
         this.phone = requestDTO.getPhone();
-         this.address = new Address(requestDTO.getAddress());
+        this.address = Optional.ofNullable(requestDTO.getAddress())
+                .map(Address::new)
+                .orElse(null);
     }
 
     @Id

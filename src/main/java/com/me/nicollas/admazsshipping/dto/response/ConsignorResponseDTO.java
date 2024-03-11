@@ -3,6 +3,9 @@ package com.me.nicollas.admazsshipping.dto.response;
 import com.me.nicollas.admazsshipping.entity.Consignor;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Data
@@ -12,6 +15,7 @@ public class ConsignorResponseDTO {
     private final String email;
     private final String phone;
     private final AddressResponseDTO address;
+    private List<ShipmentResponseDTO> shipments = new ArrayList<>();
 
     public ConsignorResponseDTO(Consignor consignor) {
         this.id = consignor.getId();
@@ -19,10 +23,9 @@ public class ConsignorResponseDTO {
         this.phone = consignor.getPhone();
         this.email = consignor.getEmail();
 
-        if (consignor.getAddress() == null) {
-            this.address = null;
-        } else {
-            this.address = new AddressResponseDTO(consignor.getAddress());
-        }
+        this.address = Optional.ofNullable(consignor.getAddress())
+                .map(AddressResponseDTO::new)
+                .orElse(null);
+
     }
 }

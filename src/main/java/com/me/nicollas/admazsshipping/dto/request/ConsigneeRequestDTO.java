@@ -12,13 +12,14 @@ import lombok.NoArgsConstructor;
 public class ConsigneeRequestDTO {
 
     @NotBlank(message = "Consignee name can't be empty")
-    private String consigneeName;
+    private String name;
 
     @NotBlank(message = "Consignee phone can't be empty")
-    private String consigneePhone;
-    @NotBlank(message = "Consignee e-mail can't be empty")
-    private String consigneeEmail;
+    private String phone;
 
-    @NotNull(message = "Consignee address can't be empty")
-    private AddressRequestDTO consigneeAddress;
+    @NotBlank(message = "Consignee e-mail can't be empty")
+    private String email;
+
+    @NotNull(message = "Consignee address can't be null")
+    private AddressRequestDTO address;
 }

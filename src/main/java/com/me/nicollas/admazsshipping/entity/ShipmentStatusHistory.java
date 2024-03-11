@@ -1,11 +1,14 @@
 package com.me.nicollas.admazsshipping.entity;
 
+import com.me.nicollas.admazsshipping.dto.request.ShipmentStatusRequestDTO;
 import com.me.nicollas.admazsshipping.enums.ShipmentStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -19,17 +22,25 @@ import java.util.UUID;
 @Table(name = "shipment_status_history")
 public class ShipmentStatusHistory {
 
+    public ShipmentStatusHistory(ShipmentStatusRequestDTO shipmentStatusRequestDTO) {
+        this.status = shipmentStatusRequestDTO.getStatus();
+        this.message = shipmentStatusRequestDTO.getMessage();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(nullable = false, name = "status")
-
     @Enumerated(EnumType.STRING)
     private ShipmentStatusEnum status = ShipmentStatusEnum.LABEL_CREATED;
 
     @Column(nullable = false, name = "message")
     private String message;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "shipment_id", referencedColumnName = "id")

@@ -1,5 +1,6 @@
 package com.me.nicollas.admazsshipping.dto.request;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +26,9 @@ public class ShipmentRequestDTO {
     @NotNull(message = "Shipment weight can't be null")
     private double weight;
 
-    private List<ItemRequestDTO> itemRequestList = new ArrayList<>();
+    @NotEmpty(message = "Shipment item List can't be empty: ${validatedValue}")
+    private List<ItemRequestDTO> itemList = new ArrayList<>();
 
+    @NotNull(message = "Shipment consignee can't be null")
     private ConsigneeRequestDTO consigneeRequest;
 }
