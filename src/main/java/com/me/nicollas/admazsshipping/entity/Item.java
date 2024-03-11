@@ -1,6 +1,7 @@
 package com.me.nicollas.admazsshipping.entity;
 
 import com.me.nicollas.admazsshipping.dto.request.ItemRequestDTO;
+import com.me.nicollas.admazsshipping.dto.request.ItemRequestUpdateDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -20,6 +21,14 @@ import java.util.UUID;
 public class Item {
 
     public Item(ItemRequestDTO itemRequestDTO) {
+        this.name = itemRequestDTO.getName();
+        this.value = itemRequestDTO.getValue();
+        this.amount = itemRequestDTO.getAmount();
+        this.description = itemRequestDTO.getDescription();
+    }
+
+    public Item(ItemRequestUpdateDTO itemRequestDTO) {
+        this.id = itemRequestDTO.getId();
         this.name = itemRequestDTO.getName();
         this.value = itemRequestDTO.getValue();
         this.amount = itemRequestDTO.getAmount();

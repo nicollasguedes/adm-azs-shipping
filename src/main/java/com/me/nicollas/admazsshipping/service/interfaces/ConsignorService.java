@@ -1,26 +1,28 @@
 package com.me.nicollas.admazsshipping.service.interfaces;
 
 import com.me.nicollas.admazsshipping.dto.request.ConsignorRequestDTO;
+import com.me.nicollas.admazsshipping.dto.request.ConsignorRequestUpdateDTO;
 import com.me.nicollas.admazsshipping.entity.Consignor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ConsignorService {
 
     Consignor saveConsignor(ConsignorRequestDTO consignorRequestDTO);
 
-    Consignor findConsignorById(String consignorId);
+    Consignor findConsignorById(UUID consignorId);
 
-    List<Consignor> listAllConsignor();
+    List<Consignor> findAllConsignor();
 
-    Page<Consignor> listAllConsignorPage(Pageable pageable);
+    Page<Consignor> pageAllConsignor(Pageable pageable);
 
-    Consignor updateConsignor(String consignorId, ConsignorRequestDTO consignorRequestDTO);
+    Consignor updateConsignor(UUID consignorId, ConsignorRequestUpdateDTO consignorRequestDTO);
 
-    Consignor switchConsignorActivity(String consignorId);
+    Consignor switchConsignorActivity(UUID consignorId);
 
-    Consignor deleteConsignor(String consignorId);
+    Consignor deleteConsignor(UUID consignorId);
 
 }

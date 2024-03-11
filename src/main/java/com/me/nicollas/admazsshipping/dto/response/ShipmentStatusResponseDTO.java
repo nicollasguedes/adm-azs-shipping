@@ -16,7 +16,6 @@ public class ShipmentStatusResponseDTO {
     private final ShipmentStatusEnum status;
     private final String message;
     private final LocalDateTime createdAt;
-
     private final UUID shipmentId;
 
     public ShipmentStatusResponseDTO(ShipmentStatusHistory shipmentStatusHistory) {

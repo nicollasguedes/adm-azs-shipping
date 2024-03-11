@@ -15,7 +15,7 @@ public class UniqueConsignorEmailValidator implements ConstraintValidator<Unique
     @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
         try {
-            return email == null || !consignorRepository.existsByEmail(email);
+            return email != null && !consignorRepository.existsByEmail(email);
         } catch (Exception ex) {
             throw new ValidationException("Error validating email uniqueness", ex);
         }

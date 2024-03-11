@@ -1,10 +1,7 @@
 package com.me.nicollas.admazsshipping.entity;
 
 import com.me.nicollas.admazsshipping.dto.request.ConsigneeRequestDTO;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Optional;
@@ -35,7 +32,7 @@ public class Consignee {
     @Column(nullable = false, name = "consignee_email")
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "consignee_address_id")
     private Address address;
 }

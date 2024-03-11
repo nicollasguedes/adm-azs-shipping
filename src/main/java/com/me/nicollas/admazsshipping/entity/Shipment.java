@@ -25,10 +25,17 @@ public class Shipment {
         this.height = shipmentRequestDTO.getHeight();
         this.length = shipmentRequestDTO.getLength();
         this.weight = shipmentRequestDTO.getWeight();
-        this.itemList = shipmentRequestDTO.getItemList().stream().map(Item::new).collect(Collectors.toList());
         this.consignee = Optional.ofNullable(shipmentRequestDTO.getConsigneeRequest())
                 .map(Consignee::new)
                 .orElse(null);
+        this.itemList = shipmentRequestDTO.getItemList().stream()
+                .map(itemRequestDTO -> {
+                    Item item = new Item(itemRequestDTO);
+                    item.setShipment(this);
+                    return item;
+                })
+                .collect(Collectors.toList());
+
     }
 
     @Id

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Data
 public class ConsignorResponseDTO {
@@ -26,6 +27,8 @@ public class ConsignorResponseDTO {
         this.address = Optional.ofNullable(consignor.getAddress())
                 .map(AddressResponseDTO::new)
                 .orElse(null);
+
+        this.shipments = consignor.getShipments().stream().map(ShipmentResponseDTO::new).collect(Collectors.toList());
 
     }
 }

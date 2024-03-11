@@ -15,7 +15,7 @@ public class UniqueConsignorIdNumberValidator implements ConstraintValidator<Uni
     @Override
     public boolean isValid(String idNumber, ConstraintValidatorContext context) {
         try {
-            return idNumber == null || !consignorRepository.existsByIdentificationNumber(idNumber);
+            return idNumber != null &&  !consignorRepository.existsByIdentificationNumber(idNumber);
         } catch (Exception ex) {
             throw new ValidationException("Error validating id number uniqueness", ex);
         }
