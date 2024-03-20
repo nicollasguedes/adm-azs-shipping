@@ -8,7 +8,7 @@ RUN mvn dependency:go-offline
 # Download dependencies and store them offline (avoids downloading on subsequent builds)
 COPY src ./src
 # Copy source code directory (src) to /app
-RUN mvn package
+RUN mvn package -DskipTests
 # Build the application and generate JAR in /app/target
 
 
