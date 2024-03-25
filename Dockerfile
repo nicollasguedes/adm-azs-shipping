@@ -22,4 +22,3 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 # Set the default command to run the application (java -jar app.jar)
 HEALTHCHECK --interval=10s --timeout=3s CMD curl --fail http://localhost:${SPRING_DOCKER_PORT}/actuator/health || exit 1
 # Defines a health check for the container. It configures a health check to run every 10 seconds (with a timeout of 3 seconds)
-

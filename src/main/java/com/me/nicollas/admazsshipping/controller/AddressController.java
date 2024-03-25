@@ -27,12 +27,6 @@ public class AddressController {
         this.addressService = addressService;
     }
 
-    @PostMapping
-    public ResponseEntity<AddressResponseDTO> createAddress(@Valid @RequestBody AddressRequestDTO addressRequestDTO) {
-        Address savedAddress = addressService.saveAddress(addressRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new AddressResponseDTO(savedAddress));
-    }
-
     @GetMapping("/{addressId}")
     public ResponseEntity<AddressResponseDTO> findAddressById(@Valid @PathVariable UUID addressId) {
         Address foundAddress = addressService.findAddressById(addressId);
