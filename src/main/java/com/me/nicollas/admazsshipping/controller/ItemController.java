@@ -27,7 +27,7 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @PostMapping
+    @PostMapping("/{shipmentId}")
     public ResponseEntity<ItemResponseDTO> createItem(@Valid @RequestBody ItemRequestDTO itemRequestDTO, @PathVariable UUID shipmentId) {
         Item savedItem = itemService.saveItem(itemRequestDTO, shipmentId);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ItemResponseDTO(savedItem));
