@@ -31,33 +31,19 @@ public class ConsignorServiceTest {
     @Value("${sql.script.insert.address}")
     private String sqlInsertAddress;
 
-    @Value("${sql.script.insert.consignee}")
-    private String sqlInsertConsignee;
-
     @Value("${sql.script.insert.shipment}")
     private String sqlInsertShipment;
 
     @Value("${sql.script.insert.item}")
     private String sqlInsertItem;
 
-    @Value("${value.datasource.name}")
-    private static String dbNameValue;
-
-    @Value("${value.datasource.username}")
-    private static String dbUserNameValue;
-
-    @Value("${value.datasource.password}")
-    private static String dbUserPasswordValue;
-
 
     @BeforeEach
     public void setupDatabase() {
-//        System.out.println("Entrou aqui ------------------------------------------");
-//        jdbc.execute(sqlInsertConsignor);
-//        jdbc.execute(sqlInsertAddress);
-//        jdbc.execute(sqlInsertConsignee);
-//        jdbc.execute(sqlInsertShipment);
-//        jdbc.execute(sqlInsertItem);
+        jdbc.execute(sqlInsertAddress);
+        jdbc.execute(sqlInsertConsignor);
+        jdbc.execute(sqlInsertShipment);
+        jdbc.execute(sqlInsertItem);
     }
 
     @Test
@@ -68,10 +54,10 @@ public class ConsignorServiceTest {
 
     @AfterEach
     public void tearDownDatabase() {
-//        System.out.println("Entrou aqui ------------------------------------------");
-//        jdbc.execute("DELETE FROM item;");
-//        jdbc.execute("DELETE FROM shipment;");
-//        jdbc.execute("DELETE FROM consignor;");
-//        jdbc.execute("DELETE FROM address;");
+
+        jdbc.execute("DELETE FROM item;");
+        jdbc.execute("DELETE FROM shipment;");
+        jdbc.execute("DELETE FROM consignor;");
+        jdbc.execute("DELETE FROM address;");
     }
 }
