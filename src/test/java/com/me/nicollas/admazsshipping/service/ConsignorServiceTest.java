@@ -24,7 +24,6 @@ public class ConsignorServiceTest {
     @Autowired
     private ConsignorServiceImpl consignorService;
 
-
     @Value("${sql.script.insert.consignor}")
     private String sqlInsertConsignor;
 
